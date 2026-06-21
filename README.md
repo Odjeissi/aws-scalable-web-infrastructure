@@ -480,4 +480,4 @@ This project shows hands-on experience with:
 
 ## Author
 
-Created by Oj Mendes as a cloud infrastructure and DevOps portfolio project.
+Created by Oj Mendes
