@@ -460,6 +460,27 @@ This project includes several security-focused choices:
 
 ---
 
+## Troubleshooting
+
+One big problem I had while working on this project was that my IaC kept terminating EC2 instances and launching new ones over and over. 
+At first, I thought the Auto Scaling Group was scaling because the CPU usage was too high, so I checked the CloudWatch metrics. The CPU usage was only around 40%, so it was not the issue.
+
+![instances_issues](docs/screenshots/instances_issues.png)
+
+![cpu](docs/screenshots/cpu.png)
+
+Next, I checked the AutoScaling Group activity history. I saw that the instances were being replaced because they failed an ELB health check. 
+After checking the ALB target group, I found out that the EC2 instances were marked as unhealthy.
+The issue was that the target group health check was using HTTP on port 80, but I hadn't deployed the application yet. Since nothing was running on port 80, the health checks failed.
+
+![history](docs/screenshots/history.png)
+
+![tg](docs/screenshots/tg.png)
+
+Because the instances failed the ALB health checks, the Auto Scaling Group treated them as unhealthy and kept replacing them. 
+To fix this during deployment, I increased the AutoScaling Group `health_check_grace_period` from 300 seconds to 600 seconds. 
+This gave me enough time to deploy the app and start the service before AutoScaling responded to the failed health checks.
+
 ## Skills Demonstrated
 
 This project shows hands-on experience with:
