@@ -28,46 +28,7 @@ The infrastructure was deployed successfully through a GitLab CI/CD pipeline. I 
 
 The Application Load Balancer and EC2 instances are deployed in public subnets. The RDS database is deployed in private subnets for better security.
 
-```mermaid
-flowchart LR
-    User[User] --> Route53[Route53 DNS]
-    Route53 --> ALB[Application Load Balancer]
-    ACM[ACM SSL/TLS Certificate] --> ALB
-
-    ALB --> ASG[Auto Scaling Group]
-
-    subgraph AWS[AWS Cloud]
-        subgraph VPC[Custom VPC]
-            subgraph Public[Public Subnets]
-                ALB
-                ASG
-                EC2A[EC2 Instance]
-                EC2B[EC2 Instance]
-            end
-
-            subgraph Private[Private Subnets]
-                RDS[(RDS Database)]
-            end
-        end
-
-        S3[S3 Bucket]
-        IAM[IAM Role / Instance Profile]
-    end
-
-    ASG --> EC2A
-    ASG --> EC2B
-
-    EC2A --> RDS
-    EC2B --> RDS
-
-    EC2A --> S3
-    EC2B --> S3
-
-    IAM --> EC2A
-    IAM --> EC2B
-```
-
----
+![architecture](docs/screenshots/architecture.png)
 
 ## Current Infrastructure Design
 
