@@ -10,6 +10,20 @@ The infrastructure was deployed successfully through a GitLab CI/CD pipeline. I 
 
 ---
 
+## Table of Contents
+
+- [Architecture](#architecture)
+- [Current Infrastructure Design](#current-infrastructure-design)
+- [AWS Services Used](#aws-services-used)
+- [Tools and Technologies](#tools-and-technologies)
+- [GitLab CI/CD Pipeline](#gitlab-cicd-pipeline)
+- [Auto Scaling Test](#auto-scaling-test)
+- [Security Considerations](#security-considerations)
+- [Troubleshooting](#troubleshooting)
+- [Skills Demonstrated](#skills-demonstrated)
+  
+---
+
 ## Architecture
 
 The Application Load Balancer and EC2 instances are deployed in public subnets. The RDS database is deployed in private subnets for better security.
